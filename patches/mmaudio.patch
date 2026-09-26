@@ -1,0 +1,49 @@
+--- a/mmaudio/eval_utils.py
++++ b/mmaudio/eval_utils.py
+@@ -91,7 +91,21 @@
+     clip_batch_size_multiplier: int = 40,
+     sync_batch_size_multiplier: int = 40,
+     image_input: bool = False,
++    sampling_method: str = "default",
++    source_text: Optional[list[str]] = None,
++    tap_alpha: float = 1.2,
+ ) -> torch.Tensor:
++    if sampling_method == "tap-foley":
++        from tap_foley.mmaudio import generate as generate_tap_foley
++        return generate_tap_foley(
++            clip_video, sync_video, text, source_text=source_text,
++            feature_utils=feature_utils, net=net, fm=fm, rng=rng,
++            cfg_strength=cfg_strength, alpha=tap_alpha, negative_text=negative_text,
++            clip_batch_size_multiplier=clip_batch_size_multiplier,
++            sync_batch_size_multiplier=sync_batch_size_multiplier, image_input=image_input,
++        )
++    if sampling_method != "default":
++        raise ValueError(f"Unknown sampling_method: {sampling_method}")
+     device = feature_utils.device
+     dtype = feature_utils.dtype
+ 
+--- a/demo.py
++++ b/demo.py
+@@ -40,7 +40,12 @@
+     parser.add_argument('--skip_video_composite', action='store_true')
+     parser.add_argument('--full_precision', action='store_true')
+ 
++    parser.add_argument('--sampling_method', choices=['default', 'tap-foley'], default='default')
++    parser.add_argument('--source_prompt', type=str, default=None)
++    parser.add_argument('--tap_alpha', type=float, default=1.2)
+     args = parser.parse_args()
++    if args.sampling_method == 'tap-foley' and (not args.source_prompt or not args.video):
++        parser.error('--sampling_method tap-foley requires --source_prompt and --video')
+ 
+     if args.variant not in all_model_cfg:
+         raise ValueError(f'Unknown model variant: {args.variant}')
+@@ -115,6 +120,9 @@
+     audios = generate(clip_frames,
+                       sync_frames, [prompt],
+                       negative_text=[negative_prompt],
++                      sampling_method=args.sampling_method,
++                      source_text=[args.source_prompt] if args.source_prompt else None,
++                      tap_alpha=args.tap_alpha,
+                       feature_utils=feature_utils,
+                       net=net,
+                       fm=fm,

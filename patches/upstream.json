@@ -1,0 +1,12 @@
+{
+  "mmaudio": {
+    "repository": "https://github.com/hkchengrex/MMAudio",
+    "commit": "974010a026c731054592d8f777218bd9d85a6c24",
+    "patch": "mmaudio.patch"
+  },
+  "omni2sound": {
+    "repository": "https://github.com/omni2sound/Omni2Sound",
+    "commit": "0222190690731627f5e98f6e47c43b3535879fcc",
+    "patch": "omni2sound.patch"
+  }
+}
