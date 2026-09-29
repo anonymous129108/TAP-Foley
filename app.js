@@ -121,7 +121,7 @@ function setupColumnScroll() {
 
 async function init() {
   try {
-    const response = await fetch("samples.json");
+    const response = await fetch("samples.json?v=20260930");
     if (!response.ok) throw new Error(`Manifest: ${response.status}`);
     renderComparison(await response.json());
     byId("loop").addEventListener("change", event => document.querySelectorAll("video").forEach(v => { v.loop = event.target.checked; }));
