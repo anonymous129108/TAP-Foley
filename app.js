@@ -73,7 +73,11 @@ function promptCell(sample, number) {
   const index = document.createElement("span");
   index.className = "sample-number";
   index.textContent = String(number).padStart(2, "0");
-  cell.append(index, promptLine("Source", sample.source), promptLine("Target", sample.target));
+  const arrow = document.createElement("span");
+  arrow.className = "prompt-arrow";
+  arrow.setAttribute("aria-hidden", "true");
+  arrow.textContent = "→";
+  cell.append(index, promptLine("Source", sample.source), arrow, promptLine("Target", sample.target));
   return cell;
 }
 
@@ -105,9 +109,7 @@ function setupColumnScroll() {
   const step = direction => {
     const card = scroller.querySelector(".media-card");
     const column = card.offsetWidth + parseFloat(getComputedStyle(card.parentElement).columnGap);
-    const prompt = scroller.querySelector(".prompt-cell");
-    const sticky = getComputedStyle(prompt).gridColumnEnd === "-1" ? 0 : prompt.offsetWidth;
-    const columns = Math.max(1, Math.floor((scroller.clientWidth - sticky) / column));
+    const columns = Math.max(1, Math.floor(scroller.clientWidth / column));
     scroller.scrollBy({ left: direction * columns * column, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   };
   byId("scroll-prev").addEventListener("click", () => step(-1));
