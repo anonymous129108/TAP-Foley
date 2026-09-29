@@ -1,24 +1,9 @@
 "use strict";
 const byId = id => document.getElementById(id);
-let data;
-let datasetIndex = 0;
-let sampleIndex = 0;
-const descriptions = {
-  "vggsound": "20 curated examples used in the final user study, shown here with method identities revealed.",
-  "greatest-hits": "16 additional examples originally prepared for the user study, but not included in the final survey. Ours uses the current constant-α TAP-Foley outputs on the same selected video–prompt pairs."
-};
 
 function pauseAll(except) {
   document.querySelectorAll("video").forEach(video => {
     if (video !== except) video.pause();
-  });
-}
-
-function disposePlayers() {
-  document.querySelectorAll("video").forEach(video => {
-    video.pause();
-    video.removeAttribute("src");
-    video.load();
   });
 }
 
@@ -35,10 +20,11 @@ function mediaCard(sample, method) {
   subtitle.textContent = input ? "Silent visual reference" : method.backbone;
   text.append(heading, subtitle);
   label.append(text);
-  if (input || method.ours) {
+  const tag = input ? "Silent" : method.ours ? "Ours" : method.tag;
+  if (tag) {
     const badge = document.createElement("span");
-    badge.className = `badge${input ? " input" : ""}`;
-    badge.textContent = input ? "Silent" : "Ours";
+    badge.className = `badge${input ? " input" : method.ours ? "" : ` tag-${tag.toLowerCase()}`}`;
+    badge.textContent = tag;
     label.append(badge);
   }
   const video = document.createElement("video");
@@ -70,63 +56,77 @@ function mediaCard(sample, method) {
   return card;
 }
 
-function renderSample() {
-  disposePlayers();
-  const dataset = data.datasets[datasetIndex];
-  const sample = dataset.samples[sampleIndex];
-  byId("sample-select").value = String(sampleIndex);
-  byId("sample-count").textContent = `${String(sampleIndex + 1).padStart(2, "0")} / ${dataset.samples.length}`;
-  byId("source-prompt").textContent = sample.source;
-  byId("target-prompt").textContent = sample.target;
-  byId("previous").disabled = sampleIndex === 0;
-  byId("next").disabled = sampleIndex === dataset.samples.length - 1;
-  byId("ours-grid").replaceChildren(mediaCard(sample), ...data.methods.filter(m => m.ours).map(m => mediaCard(sample, m)));
-  byId("baseline-grid").replaceChildren(...data.methods.filter(m => !m.ours).map(m => mediaCard(sample, m)));
+function promptLine(kind, text) {
+  const line = document.createElement("p");
+  line.className = `${kind.toLowerCase()}-prompt`;
+  const label = document.createElement("span");
+  label.textContent = kind;
+  const value = document.createElement("strong");
+  value.textContent = text;
+  line.append(label, value);
+  return line;
 }
 
-function chooseDataset(index) {
-  datasetIndex = index;
-  sampleIndex = 0;
-  const dataset = data.datasets[index];
-  document.querySelectorAll("[data-dataset]").forEach(tab => {
-    const selected = tab.dataset.dataset === dataset.id;
-    tab.setAttribute("aria-selected", String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-  });
-  byId("demo-panel").setAttribute("aria-labelledby", `tab-${dataset.id}`);
-  byId("dataset-description").textContent = descriptions[dataset.id];
-  byId("sample-select").replaceChildren(...dataset.samples.map((sample, i) => {
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = `${String(i + 1).padStart(2, "0")} · ${sample.source} → ${sample.target}`;
-    return option;
+function promptCell(sample, number) {
+  const cell = document.createElement("div");
+  cell.className = "prompt-cell";
+  const index = document.createElement("span");
+  index.className = "sample-number";
+  index.textContent = String(number).padStart(2, "0");
+  cell.append(index, promptLine("Source", sample.source), promptLine("Target", sample.target));
+  return cell;
+}
+
+function renderComparison(data) {
+  const dataset = data.datasets[0];
+  byId("dataset-name").textContent = dataset.name;
+  byId("sample-count").textContent = `${dataset.samples.length} examples`;
+  byId("comparison").style.setProperty("--columns", data.methods.length + 1);
+  byId("comparison").replaceChildren(...dataset.samples.map((sample, i) => {
+    const row = document.createElement("div");
+    row.className = "sample-row";
+    row.setAttribute("role", "group");
+    row.setAttribute("aria-label", `Example ${i + 1}: ${sample.source} to ${sample.target}`);
+    row.append(promptCell(sample, i + 1), mediaCard(sample), ...data.methods.map(m => mediaCard(sample, m)));
+    return row;
   }));
-  renderSample();
+}
+
+function setupColumnScroll() {
+  const frame = byId("comparison-frame");
+  const scroller = byId("comparison-scroll");
+  const update = () => {
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    frame.classList.toggle("at-start", scroller.scrollLeft <= 1);
+    frame.classList.toggle("at-end", scroller.scrollLeft >= max - 1);
+    byId("scroll-prev").disabled = scroller.scrollLeft <= 1;
+    byId("scroll-next").disabled = scroller.scrollLeft >= max - 1;
+  };
+  const step = direction => {
+    const card = scroller.querySelector(".media-card");
+    const column = card.offsetWidth + parseFloat(getComputedStyle(card.parentElement).columnGap);
+    const prompt = scroller.querySelector(".prompt-cell");
+    const sticky = getComputedStyle(prompt).gridColumnEnd === "-1" ? 0 : prompt.offsetWidth;
+    const columns = Math.max(1, Math.floor((scroller.clientWidth - sticky) / column));
+    scroller.scrollBy({ left: direction * columns * column, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  };
+  byId("scroll-prev").addEventListener("click", () => step(-1));
+  byId("scroll-next").addEventListener("click", () => step(1));
+  scroller.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
 }
 
 async function init() {
   try {
     const response = await fetch("samples.json");
     if (!response.ok) throw new Error(`Manifest: ${response.status}`);
-    data = await response.json();
-    document.querySelectorAll("[data-dataset]").forEach((tab, index) => {
-      tab.addEventListener("click", () => chooseDataset(index));
-      tab.addEventListener("keydown", event => {
-        if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
-        event.preventDefault();
-        const next = event.key === "Home" ? 0 : event.key === "End" ? data.datasets.length - 1 : (index + (event.key === "ArrowRight" ? 1 : -1) + data.datasets.length) % data.datasets.length;
-        chooseDataset(next);
-        document.querySelectorAll("[data-dataset]")[next].focus();
-      });
-    });
-    byId("sample-select").addEventListener("change", event => { sampleIndex = Number(event.target.value); renderSample(); });
-    byId("previous").addEventListener("click", () => { if (sampleIndex > 0) { sampleIndex--; renderSample(); } });
-    byId("next").addEventListener("click", () => { if (sampleIndex < data.datasets[datasetIndex].samples.length - 1) { sampleIndex++; renderSample(); } });
+    renderComparison(await response.json());
     byId("loop").addEventListener("change", event => document.querySelectorAll("video").forEach(v => { v.loop = event.target.checked; }));
     document.addEventListener("visibilitychange", () => { if (document.hidden) pauseAll(); });
-    chooseDataset(0);
     byId("demo-app").hidden = false;
     byId("load-status").hidden = true;
+    setupColumnScroll();
   } catch (error) {
     byId("load-status").textContent = "The examples could not be loaded. Please refresh the page to try again.";
     console.error(error);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="TAP-Foley: Inference-Time Target-Anchored Projection for Counterfactual Video Foley Generation. Method overview and audio-video comparisons on VGGSound and Greatest Hits.">
+  <meta name="description" content="TAP-Foley: Inference-Time Target-Anchored Projection for Counterfactual Video Foley Generation. Method overview and audio-video comparisons on VGGSound-Counterfactual.">
   <meta name="theme-color" content="#16776d">
   <title>TAP-Foley: Inference-Time Target-Anchored Projection for Counterfactual Video Foley Generation</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -29,9 +29,13 @@
       </div>
       <p class="benchmark-downloads">1,189 videos · One source and 10 targets per video<br>Download the manifest: <a href="data/vggsounder_1189x10.csv" download>CSV</a> <span aria-hidden="true">·</span> <a href="data/vggsounder_1189x10.jsonl" download>JSONL</a></p>
     </section>
+    <section id="tldr" class="tldr section" aria-labelledby="tldr-title">
+      <div class="section-heading"><span class="section-number">00</span><h2 id="tldr-title">TL;DR</h2></div>
+      <p>TAP-Foley is an inference-time guidance method for Counterfactual Video Foley Generation that suppresses the source sound identity implied by the video while retaining video conditioning throughout generation: at each step, it removes only the excess source-directed steering along a single source–target axis, mitigating the video–text conflict without dropping either modality. On our new VGGSound-Counterfactual benchmark, it achieves a more favorable trade-off between sound identity replacement and temporal alignment than the evaluated configurations of prior methods, improving temporal alignment by 20% over the strongest prior inference-time guidance method at matched replacement.</p>
+    </section>
     <section id="abstract" class="abstract section" aria-labelledby="abstract-title">
       <div class="section-heading"><span class="section-number">01</span><h2 id="abstract-title">Abstract</h2></div>
-      <p>Counterfactual Video Foley Generation replaces the source sound identity that a silent video implies with the target sound identity that a text prompt describes, while preserving the timing of visible events. Video-text-to-audio (VT2A) models struggle with this task because video conditioning carries not only the timing but also the source identity, which conflicts with the target prompt. Existing training-based methods suppress the source identity by adding a visual adapter or by training on visual–text conflicts, yet it remains partially audible. Inference-time guidance methods suppress it more fully, by negative source prompting with a fixed weight or by dropping video conditioning at an intermediate step, yet both degrade temporal alignment. We propose TAP-Foley, an inference-time guidance method that adaptively suppresses the source identity while retaining video conditioning throughout generation. At each step, it measures how strongly the video steers the prediction toward the source identity beyond what the target prompt alone would produce. It removes this excess along a single source–target axis with a scaled closed-form projection onto a novel target-anchored constraint. To reliably evaluate sound identity replacement and temporal alignment, we introduce VGGSound-Counterfactual, a benchmark for Counterfactual Video Foley Generation. Comprehensive experiments on two VT2A backbones show that TAP-Foley achieves a more favorable trade-off between sound identity replacement and temporal alignment than the evaluated configurations of prior methods. At matched replacement, it improves temporal alignment by 19% and 20% over the strongest prior inference-time guidance method. Code, benchmark, and demos are available at <a href="https://anonymous129108.github.io/TAP-Foley/">https://anonymous129108.github.io/TAP-Foley/</a>.</p>
+      <p>Counterfactual Video Foley Generation replaces the source sound identity that a silent video implies with the target sound identity that a text prompt describes, while preserving the timing of visible events. Video-text-to-audio (VT2A) models struggle with this task because video conditioning carries not only the timing but also the source identity, which conflicts with the target prompt. Existing training-based methods suppress the source identity by adding a visual adapter or by training on video–text conflicts, yet it remains partially audible. Inference-time guidance methods suppress it more fully, by negative source prompting with a fixed weight or by dropping video conditioning at an intermediate step, yet both degrade temporal alignment. We propose TAP-Foley, an inference-time guidance method that adaptively suppresses the source identity while retaining video conditioning throughout generation. At each step, it measures how strongly the video steers the prediction toward the source identity beyond what the target prompt alone would produce. It removes this excess along a single source–target axis with a scaled closed-form projection onto a target-anchored constraint, so the conflict between the two modalities is mitigated without dropping either. To reliably evaluate sound identity replacement and temporal alignment, we introduce VGGSound-Counterfactual, a benchmark for Counterfactual Video Foley Generation. Comprehensive experiments show that TAP-Foley achieves a more favorable trade-off between sound identity replacement and temporal alignment than the evaluated configurations of prior methods. At matched replacement, it improves temporal alignment by 20% over the strongest prior inference-time guidance method.</p>
     </section>
     <section id="method" class="section" aria-labelledby="method-title">
       <div class="section-heading"><span class="section-number">02</span><h2 id="method-title">Method overview</h2></div>
@@ -44,23 +48,20 @@
       <div class="section-heading"><span class="section-number">03</span><h2 id="demo-title">See the action. Hear the target.</h2></div>
       <p class="section-intro">Compare both TAP-Foley backbones with six baselines on the same video and target prompt.</p>
       <div id="demo-app" hidden>
-        <div class="dataset-tabs" role="tablist" aria-label="Demo dataset">
-          <button id="tab-vggsound" type="button" role="tab" aria-controls="demo-panel" aria-selected="true" data-dataset="vggsound">VGGSound <span>20</span></button>
-          <button id="tab-greatest-hits" type="button" role="tab" aria-controls="demo-panel" aria-selected="false" tabindex="-1" data-dataset="greatest-hits">Greatest Hits <span>16</span></button>
-        </div>
-        <div id="demo-panel" role="tabpanel" aria-labelledby="tab-vggsound">
-          <p id="dataset-description" class="dataset-description"></p>
-          <div class="sample-toolbar">
-            <div class="sample-picker"><label for="sample-select">Choose an example</label><select id="sample-select"></select></div>
-            <div class="sample-pagination"><span id="sample-count" aria-live="polite"></span><button id="previous" type="button" aria-label="Previous example">←</button><button id="next" type="button" aria-label="Next example">→</button></div>
+        <div class="demo-toolbar">
+          <div class="dataset-heading"><h3 id="dataset-name">VGGSound-Counterfactual</h3><span id="sample-count"></span></div>
+          <div class="demo-controls">
+            <label class="loop-toggle"><input id="loop" type="checkbox"> Loop playback</label>
+            <div class="scroll-buttons" aria-label="Browse methods"><button id="scroll-prev" type="button" aria-label="Show earlier methods">←</button><button id="scroll-next" type="button" aria-label="Show more methods">→</button></div>
           </div>
-          <div class="prompt-pair" aria-live="polite"><div class="source-prompt"><span>Source prompt</span><strong id="source-prompt"></strong></div><span class="prompt-arrow" aria-hidden="true">→</span><div class="target-prompt"><span>Target prompt</span><strong id="target-prompt"></strong></div></div>
-          <div class="playback-help"><p>Use headphones. Play a video to listen; other players pause automatically. Clips show the same opening segment, up to 8 seconds.</p><label><input id="loop" type="checkbox"> Loop playback</label></div>
-          <div id="ours-grid" class="media-grid ours-grid"></div>
-          <div class="baseline-heading"><h3>Baselines</h3><span>Same input video · Same target prompt</span></div>
-          <div id="baseline-grid" class="media-grid baseline-grid"></div>
         </div>
-        <p class="protocol-note">TAP-Foley (Ours) uses constant α = 1.2 on both MMAudio and Omni2Sound. Direct uses video + target prompt. VGGSound contains the examples used in our user study; Greatest Hits contains additional examples originally prepared for the study but excluded from the final survey. These curated examples illustrate individual outputs.</p>
+        <p class="dataset-description">Curated examples from our user study, shown with method identities revealed. Each row is one video and target prompt; each column is one method. Use headphones: playing one clip pauses the others. Clips show the same opening segment, up to 8 seconds.</p>
+        <div id="comparison-frame" class="comparison-frame">
+          <div id="comparison-scroll" class="comparison-scroll" role="region" aria-label="Audio-video comparisons, one example per row" tabindex="0">
+            <div id="comparison" class="comparison"></div>
+          </div>
+        </div>
+        <p class="protocol-note">TAP-Foley (Ours) uses constant α = 1.2 on both MMAudio and Omni2Sound. Default CFG uses video + target prompt. These curated examples illustrate individual outputs.</p>
       </div>
       <p id="load-status" role="status">Loading examples…</p>
       <noscript><p>Enable JavaScript to browse the video comparisons.</p></noscript>

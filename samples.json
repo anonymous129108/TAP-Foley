@@ -14,249 +14,68 @@
     },
     {
       "id": "counterflow-mmaudio",
-      "name": "Strict CounterFlow",
+      "name": "CounterFlow",
       "backbone": "MMAudio",
-      "ours": false
+      "ours": false,
+      "tag": "Inference-time"
     },
     {
       "id": "counterflow-omni2sound",
-      "name": "Strict CounterFlow",
+      "name": "CounterFlow",
       "backbone": "Omni2Sound",
-      "ours": false
+      "ours": false,
+      "tag": "Inference-time"
     },
     {
       "id": "cafa",
       "name": "CAFA",
       "backbone": "Default",
-      "ours": false
+      "ours": false,
+      "tag": "Training-based"
     },
     {
       "id": "controlfoley",
       "name": "ControlFoley",
       "backbone": "Default",
-      "ours": false
+      "ours": false,
+      "tag": "Training-based"
     },
     {
       "id": "direct-mmaudio",
-      "name": "Direct",
+      "name": "Default CFG",
       "backbone": "MMAudio",
-      "ours": false
+      "ours": false,
+      "tag": "Default"
     },
     {
       "id": "direct-omni2sound",
-      "name": "Direct",
+      "name": "Default CFG",
       "backbone": "Omni2Sound",
-      "ours": false
+      "ours": false,
+      "tag": "Default"
     }
   ],
   "clipSeconds": 8,
   "datasets": [
     {
       "id": "vggsound",
-      "name": "VGGSound",
+      "name": "VGGSound-Counterfactual",
       "samples": [
         {
-          "id": "vggsound-01",
-          "source": "chipmunk chirping",
-          "target": "rope skipping",
-          "video": "media/vggsound/01/input.mp4",
-          "poster": "media/vggsound/01/poster.jpg",
+          "id": "vggsound-15",
+          "source": "cat hissing",
+          "target": "sheep bleating",
+          "video": "media/vggsound/15/input.mp4",
+          "poster": "media/vggsound/15/poster.jpg",
           "outputs": {
-            "tap-mmaudio": "media/vggsound/01/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/01/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/01/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/01/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/01/cafa.mp4",
-            "controlfoley": "media/vggsound/01/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/01/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/01/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-02",
-          "source": "male speech, man speaking",
-          "target": "male singing",
-          "video": "media/vggsound/02/input.mp4",
-          "poster": "media/vggsound/02/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/02/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/02/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/02/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/02/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/02/cafa.mp4",
-            "controlfoley": "media/vggsound/02/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/02/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/02/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-03",
-          "source": "coyote howling",
-          "target": "singing choir",
-          "video": "media/vggsound/03/input.mp4",
-          "poster": "media/vggsound/03/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/03/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/03/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/03/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/03/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/03/cafa.mp4",
-            "controlfoley": "media/vggsound/03/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/03/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/03/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-04",
-          "source": "playing acoustic guitar",
-          "target": "playing piano",
-          "video": "media/vggsound/04/input.mp4",
-          "poster": "media/vggsound/04/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/04/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/04/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/04/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/04/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/04/cafa.mp4",
-            "controlfoley": "media/vggsound/04/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/04/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/04/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-05",
-          "source": "elk bugling",
-          "target": "train whistling",
-          "video": "media/vggsound/05/input.mp4",
-          "poster": "media/vggsound/05/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/05/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/05/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/05/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/05/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/05/cafa.mp4",
-            "controlfoley": "media/vggsound/05/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/05/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/05/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-06",
-          "source": "train whistling",
-          "target": "elephant trumpeting",
-          "video": "media/vggsound/06/input.mp4",
-          "poster": "media/vggsound/06/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/06/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/06/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/06/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/06/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/06/cafa.mp4",
-            "controlfoley": "media/vggsound/06/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/06/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/06/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-07",
-          "source": "opening or closing car electric windows",
-          "target": "baby crying",
-          "video": "media/vggsound/07/input.mp4",
-          "poster": "media/vggsound/07/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/07/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/07/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/07/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/07/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/07/cafa.mp4",
-            "controlfoley": "media/vggsound/07/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/07/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/07/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-08",
-          "source": "golf driving",
-          "target": "opening or closing car doors",
-          "video": "media/vggsound/08/input.mp4",
-          "poster": "media/vggsound/08/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/08/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/08/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/08/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/08/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/08/cafa.mp4",
-            "controlfoley": "media/vggsound/08/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/08/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/08/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-09",
-          "source": "tap dancing",
-          "target": "playing table tennis",
-          "video": "media/vggsound/09/input.mp4",
-          "poster": "media/vggsound/09/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/09/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/09/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/09/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/09/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/09/cafa.mp4",
-            "controlfoley": "media/vggsound/09/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/09/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/09/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-10",
-          "source": "playing timpani",
-          "target": "playing glockenspiel",
-          "video": "media/vggsound/10/input.mp4",
-          "poster": "media/vggsound/10/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/10/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/10/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/10/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/10/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/10/cafa.mp4",
-            "controlfoley": "media/vggsound/10/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/10/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/10/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-11",
-          "source": "male speech, man speaking",
-          "target": "female speech, woman speaking",
-          "video": "media/vggsound/11/input.mp4",
-          "poster": "media/vggsound/11/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/11/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/11/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/11/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/11/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/11/cafa.mp4",
-            "controlfoley": "media/vggsound/11/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/11/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/11/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-12",
-          "source": "playing tuning fork",
-          "target": "playing gong",
-          "video": "media/vggsound/12/input.mp4",
-          "poster": "media/vggsound/12/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/12/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/12/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/12/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/12/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/12/cafa.mp4",
-            "controlfoley": "media/vggsound/12/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/12/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/12/direct-omni2sound.mp4"
+            "tap-mmaudio": "media/vggsound/15/tap-mmaudio.mp4",
+            "tap-omni2sound": "media/vggsound/15/tap-omni2sound.mp4",
+            "counterflow-mmaudio": "media/vggsound/15/counterflow-mmaudio.mp4",
+            "counterflow-omni2sound": "media/vggsound/15/counterflow-omni2sound.mp4",
+            "cafa": "media/vggsound/15/cafa.mp4",
+            "controlfoley": "media/vggsound/15/controlfoley.mp4",
+            "direct-mmaudio": "media/vggsound/15/direct-mmaudio.mp4",
+            "direct-omni2sound": "media/vggsound/15/direct-omni2sound.mp4"
           }
         },
         {
@@ -277,6 +96,91 @@
           }
         },
         {
+          "id": "vggsound-07",
+          "source": "opening or closing car electric windows",
+          "target": "baby crying",
+          "video": "media/vggsound/07/input.mp4",
+          "poster": "media/vggsound/07/poster.jpg",
+          "outputs": {
+            "tap-mmaudio": "media/vggsound/07/tap-mmaudio.mp4",
+            "tap-omni2sound": "media/vggsound/07/tap-omni2sound.mp4",
+            "counterflow-mmaudio": "media/vggsound/07/counterflow-mmaudio.mp4",
+            "counterflow-omni2sound": "media/vggsound/07/counterflow-omni2sound.mp4",
+            "cafa": "media/vggsound/07/cafa.mp4",
+            "controlfoley": "media/vggsound/07/controlfoley.mp4",
+            "direct-mmaudio": "media/vggsound/07/direct-mmaudio.mp4",
+            "direct-omni2sound": "media/vggsound/07/direct-omni2sound.mp4"
+          }
+        },
+        {
+          "id": "vggsound-02",
+          "source": "male speech, man speaking",
+          "target": "male singing",
+          "video": "media/vggsound/02/input.mp4",
+          "poster": "media/vggsound/02/poster.jpg",
+          "outputs": {
+            "tap-mmaudio": "media/vggsound/02/tap-mmaudio.mp4",
+            "tap-omni2sound": "media/vggsound/02/tap-omni2sound.mp4",
+            "counterflow-mmaudio": "media/vggsound/02/counterflow-mmaudio.mp4",
+            "counterflow-omni2sound": "media/vggsound/02/counterflow-omni2sound.mp4",
+            "cafa": "media/vggsound/02/cafa.mp4",
+            "controlfoley": "media/vggsound/02/controlfoley.mp4",
+            "direct-mmaudio": "media/vggsound/02/direct-mmaudio.mp4",
+            "direct-omni2sound": "media/vggsound/02/direct-omni2sound.mp4"
+          }
+        },
+        {
+          "id": "vggsound-06",
+          "source": "train whistling",
+          "target": "elephant trumpeting",
+          "video": "media/vggsound/06/input.mp4",
+          "poster": "media/vggsound/06/poster.jpg",
+          "outputs": {
+            "tap-mmaudio": "media/vggsound/06/tap-mmaudio.mp4",
+            "tap-omni2sound": "media/vggsound/06/tap-omni2sound.mp4",
+            "counterflow-mmaudio": "media/vggsound/06/counterflow-mmaudio.mp4",
+            "counterflow-omni2sound": "media/vggsound/06/counterflow-omni2sound.mp4",
+            "cafa": "media/vggsound/06/cafa.mp4",
+            "controlfoley": "media/vggsound/06/controlfoley.mp4",
+            "direct-mmaudio": "media/vggsound/06/direct-mmaudio.mp4",
+            "direct-omni2sound": "media/vggsound/06/direct-omni2sound.mp4"
+          }
+        },
+        {
+          "id": "vggsound-11",
+          "source": "male speech, man speaking",
+          "target": "female speech, woman speaking",
+          "video": "media/vggsound/11/input.mp4",
+          "poster": "media/vggsound/11/poster.jpg",
+          "outputs": {
+            "tap-mmaudio": "media/vggsound/11/tap-mmaudio.mp4",
+            "tap-omni2sound": "media/vggsound/11/tap-omni2sound.mp4",
+            "counterflow-mmaudio": "media/vggsound/11/counterflow-mmaudio.mp4",
+            "counterflow-omni2sound": "media/vggsound/11/counterflow-omni2sound.mp4",
+            "cafa": "media/vggsound/11/cafa.mp4",
+            "controlfoley": "media/vggsound/11/controlfoley.mp4",
+            "direct-mmaudio": "media/vggsound/11/direct-mmaudio.mp4",
+            "direct-omni2sound": "media/vggsound/11/direct-omni2sound.mp4"
+          }
+        },
+        {
+          "id": "vggsound-09",
+          "source": "tap dancing",
+          "target": "playing table tennis",
+          "video": "media/vggsound/09/input.mp4",
+          "poster": "media/vggsound/09/poster.jpg",
+          "outputs": {
+            "tap-mmaudio": "media/vggsound/09/tap-mmaudio.mp4",
+            "tap-omni2sound": "media/vggsound/09/tap-omni2sound.mp4",
+            "counterflow-mmaudio": "media/vggsound/09/counterflow-mmaudio.mp4",
+            "counterflow-omni2sound": "media/vggsound/09/counterflow-omni2sound.mp4",
+            "cafa": "media/vggsound/09/cafa.mp4",
+            "controlfoley": "media/vggsound/09/controlfoley.mp4",
+            "direct-mmaudio": "media/vggsound/09/direct-mmaudio.mp4",
+            "direct-omni2sound": "media/vggsound/09/direct-omni2sound.mp4"
+          }
+        },
+        {
           "id": "vggsound-14",
           "source": "air horn",
           "target": "dog barking",
@@ -294,383 +198,20 @@
           }
         },
         {
-          "id": "vggsound-15",
-          "source": "cat hissing",
-          "target": "sheep bleating",
-          "video": "media/vggsound/15/input.mp4",
-          "poster": "media/vggsound/15/poster.jpg",
+          "id": "vggsound-01",
+          "source": "chipmunk chirping",
+          "target": "rope skipping",
+          "video": "media/vggsound/01/input.mp4",
+          "poster": "media/vggsound/01/poster.jpg",
           "outputs": {
-            "tap-mmaudio": "media/vggsound/15/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/15/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/15/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/15/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/15/cafa.mp4",
-            "controlfoley": "media/vggsound/15/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/15/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/15/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-16",
-          "source": "beat boxing",
-          "target": "horse clip-clop",
-          "video": "media/vggsound/16/input.mp4",
-          "poster": "media/vggsound/16/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/16/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/16/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/16/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/16/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/16/cafa.mp4",
-            "controlfoley": "media/vggsound/16/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/16/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/16/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-17",
-          "source": "playing tennis",
-          "target": "playing badminton",
-          "video": "media/vggsound/17/input.mp4",
-          "poster": "media/vggsound/17/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/17/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/17/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/17/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/17/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/17/cafa.mp4",
-            "controlfoley": "media/vggsound/17/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/17/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/17/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-18",
-          "source": "beat boxing",
-          "target": "tap dancing",
-          "video": "media/vggsound/18/input.mp4",
-          "poster": "media/vggsound/18/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/18/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/18/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/18/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/18/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/18/cafa.mp4",
-            "controlfoley": "media/vggsound/18/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/18/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/18/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-19",
-          "source": "skateboarding",
-          "target": "car passing by",
-          "video": "media/vggsound/19/input.mp4",
-          "poster": "media/vggsound/19/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/19/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/19/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/19/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/19/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/19/cafa.mp4",
-            "controlfoley": "media/vggsound/19/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/19/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/19/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "vggsound-20",
-          "source": "motorboat, speedboat acceleration",
-          "target": "airplane",
-          "video": "media/vggsound/20/input.mp4",
-          "poster": "media/vggsound/20/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/vggsound/20/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/vggsound/20/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/vggsound/20/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/vggsound/20/counterflow-omni2sound.mp4",
-            "cafa": "media/vggsound/20/cafa.mp4",
-            "controlfoley": "media/vggsound/20/controlfoley.mp4",
-            "direct-mmaudio": "media/vggsound/20/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/vggsound/20/direct-omni2sound.mp4"
-          }
-        }
-      ]
-    },
-    {
-      "id": "greatest-hits",
-      "name": "Greatest Hits",
-      "samples": [
-        {
-          "id": "greatest-hits-01",
-          "source": "a stick hitting cloth",
-          "target": "cap gun shooting",
-          "video": "media/greatest-hits/01/input.mp4",
-          "poster": "media/greatest-hits/01/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/01/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/01/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/01/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/01/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/01/cafa.mp4",
-            "controlfoley": "media/greatest-hits/01/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/01/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/01/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-02",
-          "source": "a stick hitting cloth",
-          "target": "cap gun shooting",
-          "video": "media/greatest-hits/02/input.mp4",
-          "poster": "media/greatest-hits/02/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/02/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/02/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/02/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/02/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/02/cafa.mp4",
-            "controlfoley": "media/greatest-hits/02/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/02/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/02/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-03",
-          "source": "a stick hitting dirt",
-          "target": "hammering nails",
-          "video": "media/greatest-hits/03/input.mp4",
-          "poster": "media/greatest-hits/03/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/03/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/03/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/03/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/03/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/03/cafa.mp4",
-            "controlfoley": "media/greatest-hits/03/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/03/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/03/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-04",
-          "source": "a stick hitting dirt",
-          "target": "playing snare drum",
-          "video": "media/greatest-hits/04/input.mp4",
-          "poster": "media/greatest-hits/04/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/04/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/04/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/04/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/04/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/04/cafa.mp4",
-            "controlfoley": "media/greatest-hits/04/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/04/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/04/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-05",
-          "source": "a stick hitting glass",
-          "target": "playing bongo",
-          "video": "media/greatest-hits/05/input.mp4",
-          "poster": "media/greatest-hits/05/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/05/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/05/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/05/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/05/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/05/cafa.mp4",
-            "controlfoley": "media/greatest-hits/05/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/05/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/05/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-06",
-          "source": "a stick hitting glass",
-          "target": "playing tambourine",
-          "video": "media/greatest-hits/06/input.mp4",
-          "poster": "media/greatest-hits/06/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/06/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/06/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/06/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/06/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/06/cafa.mp4",
-            "controlfoley": "media/greatest-hits/06/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/06/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/06/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-07",
-          "source": "a stick hitting metal",
-          "target": "people finger snapping",
-          "video": "media/greatest-hits/07/input.mp4",
-          "poster": "media/greatest-hits/07/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/07/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/07/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/07/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/07/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/07/cafa.mp4",
-            "controlfoley": "media/greatest-hits/07/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/07/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/07/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-08",
-          "source": "a stick hitting metal",
-          "target": "playing tambourine",
-          "video": "media/greatest-hits/08/input.mp4",
-          "poster": "media/greatest-hits/08/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/08/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/08/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/08/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/08/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/08/cafa.mp4",
-            "controlfoley": "media/greatest-hits/08/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/08/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/08/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-09",
-          "source": "a stick hitting paper",
-          "target": "playing glockenspiel",
-          "video": "media/greatest-hits/09/input.mp4",
-          "poster": "media/greatest-hits/09/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/09/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/09/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/09/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/09/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/09/cafa.mp4",
-            "controlfoley": "media/greatest-hits/09/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/09/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/09/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-10",
-          "source": "a stick hitting paper",
-          "target": "playing glockenspiel",
-          "video": "media/greatest-hits/10/input.mp4",
-          "poster": "media/greatest-hits/10/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/10/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/10/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/10/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/10/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/10/cafa.mp4",
-            "controlfoley": "media/greatest-hits/10/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/10/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/10/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-11",
-          "source": "a stick hitting plastic",
-          "target": "dog barking",
-          "video": "media/greatest-hits/11/input.mp4",
-          "poster": "media/greatest-hits/11/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/11/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/11/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/11/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/11/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/11/cafa.mp4",
-            "controlfoley": "media/greatest-hits/11/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/11/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/11/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-12",
-          "source": "a stick hitting plastic",
-          "target": "playing bongo",
-          "video": "media/greatest-hits/12/input.mp4",
-          "poster": "media/greatest-hits/12/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/12/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/12/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/12/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/12/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/12/cafa.mp4",
-            "controlfoley": "media/greatest-hits/12/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/12/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/12/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-13",
-          "source": "a stick hitting rock",
-          "target": "dog barking",
-          "video": "media/greatest-hits/13/input.mp4",
-          "poster": "media/greatest-hits/13/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/13/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/13/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/13/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/13/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/13/cafa.mp4",
-            "controlfoley": "media/greatest-hits/13/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/13/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/13/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-14",
-          "source": "a stick hitting rock",
-          "target": "hammering nails",
-          "video": "media/greatest-hits/14/input.mp4",
-          "poster": "media/greatest-hits/14/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/14/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/14/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/14/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/14/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/14/cafa.mp4",
-            "controlfoley": "media/greatest-hits/14/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/14/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/14/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-15",
-          "source": "a stick hitting wood",
-          "target": "people finger snapping",
-          "video": "media/greatest-hits/15/input.mp4",
-          "poster": "media/greatest-hits/15/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/15/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/15/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/15/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/15/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/15/cafa.mp4",
-            "controlfoley": "media/greatest-hits/15/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/15/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/15/direct-omni2sound.mp4"
-          }
-        },
-        {
-          "id": "greatest-hits-16",
-          "source": "a stick hitting wood",
-          "target": "playing snare drum",
-          "video": "media/greatest-hits/16/input.mp4",
-          "poster": "media/greatest-hits/16/poster.jpg",
-          "outputs": {
-            "tap-mmaudio": "media/greatest-hits/16/tap-mmaudio.mp4",
-            "tap-omni2sound": "media/greatest-hits/16/tap-omni2sound.mp4",
-            "counterflow-mmaudio": "media/greatest-hits/16/counterflow-mmaudio.mp4",
-            "counterflow-omni2sound": "media/greatest-hits/16/counterflow-omni2sound.mp4",
-            "cafa": "media/greatest-hits/16/cafa.mp4",
-            "controlfoley": "media/greatest-hits/16/controlfoley.mp4",
-            "direct-mmaudio": "media/greatest-hits/16/direct-mmaudio.mp4",
-            "direct-omni2sound": "media/greatest-hits/16/direct-omni2sound.mp4"
+            "tap-mmaudio": "media/vggsound/01/tap-mmaudio.mp4",
+            "tap-omni2sound": "media/vggsound/01/tap-omni2sound.mp4",
+            "counterflow-mmaudio": "media/vggsound/01/counterflow-mmaudio.mp4",
+            "counterflow-omni2sound": "media/vggsound/01/counterflow-omni2sound.mp4",
+            "cafa": "media/vggsound/01/cafa.mp4",
+            "controlfoley": "media/vggsound/01/controlfoley.mp4",
+            "direct-mmaudio": "media/vggsound/01/direct-mmaudio.mp4",
+            "direct-omni2sound": "media/vggsound/01/direct-omni2sound.mp4"
           }
         }
       ]
