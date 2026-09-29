@@ -81,54 +81,82 @@ function promptCell(sample, number) {
   return cell;
 }
 
-function renderComparison(data) {
-  const dataset = data.datasets[0];
-  byId("dataset-name").textContent = dataset.name;
-  byId("sample-count").textContent = `${dataset.samples.length} examples`;
-  byId("comparison").style.setProperty("--columns", data.methods.length + 1);
-  byId("comparison").replaceChildren(...dataset.samples.map((sample, i) => {
-    const row = document.createElement("div");
-    row.className = "sample-row";
-    row.setAttribute("role", "group");
-    row.setAttribute("aria-label", `Example ${i + 1}: ${sample.source} to ${sample.target}`);
-    row.append(promptCell(sample, i + 1), mediaCard(sample), ...data.methods.map(m => mediaCard(sample, m)));
-    return row;
-  }));
+function scrollButton(label, text) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.setAttribute("aria-label", label);
+  button.textContent = text;
+  return button;
 }
 
-function setupColumnScroll() {
-  const frame = byId("comparison-frame");
-  const scroller = byId("comparison-scroll");
+function sampleRow(sample, number, methods) {
+  const row = document.createElement("div");
+  row.className = "sample-row";
+  row.setAttribute("role", "listitem");
+  row.setAttribute("aria-label", `Example ${number}: ${sample.source} to ${sample.target}`);
+  const head = document.createElement("div");
+  head.className = "sample-head";
+  const buttons = document.createElement("div");
+  buttons.className = "scroll-buttons";
+  const prev = scrollButton(`Show earlier methods for example ${number}`, "←");
+  const next = scrollButton(`Show more methods for example ${number}`, "→");
+  buttons.append(prev, next);
+  head.append(promptCell(sample, number), buttons);
+  const frame = document.createElement("div");
+  frame.className = "row-frame at-start";
+  const scroller = document.createElement("div");
+  scroller.className = "row-scroll";
+  scroller.tabIndex = 0;
+  scroller.setAttribute("aria-label", `Method outputs for example ${number}; scroll sideways for more`);
+  const track = document.createElement("div");
+  track.className = "row-track";
+  track.append(mediaCard(sample), ...methods.map(m => mediaCard(sample, m)));
+  scroller.append(track);
+  frame.append(scroller);
+  row.append(head, frame);
+
   const update = () => {
     const max = scroller.scrollWidth - scroller.clientWidth;
     frame.classList.toggle("at-start", scroller.scrollLeft <= 1);
     frame.classList.toggle("at-end", scroller.scrollLeft >= max - 1);
-    byId("scroll-prev").disabled = scroller.scrollLeft <= 1;
-    byId("scroll-next").disabled = scroller.scrollLeft >= max - 1;
+    prev.disabled = scroller.scrollLeft <= 1;
+    next.disabled = scroller.scrollLeft >= max - 1;
   };
   const step = direction => {
-    const card = scroller.querySelector(".media-card");
-    const column = card.offsetWidth + parseFloat(getComputedStyle(card.parentElement).columnGap);
+    const card = track.firstElementChild;
+    const column = card.offsetWidth + parseFloat(getComputedStyle(track).columnGap);
     const columns = Math.max(1, Math.floor(scroller.clientWidth / column));
     scroller.scrollBy({ left: direction * columns * column, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   };
-  byId("scroll-prev").addEventListener("click", () => step(-1));
-  byId("scroll-next").addEventListener("click", () => step(1));
+  prev.addEventListener("click", () => step(-1));
+  next.addEventListener("click", () => step(1));
   scroller.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
-  update();
+  row.update = update;
+  return row;
+}
+
+function renderComparison(data) {
+  const dataset = data.datasets[0];
+  byId("dataset-name").textContent = dataset.name;
+  byId("sample-count").textContent = `${dataset.samples.length} examples`;
+  byId("comparison").replaceChildren(...dataset.samples.map((sample, i) => sampleRow(sample, i + 1, data.methods)));
+}
+
+function updateRows() {
+  document.querySelectorAll(".sample-row").forEach(row => row.update());
 }
 
 async function init() {
   try {
-    const response = await fetch("samples.json?v=20260930");
+    const response = await fetch("samples.json?v=20260930b");
     if (!response.ok) throw new Error(`Manifest: ${response.status}`);
     renderComparison(await response.json());
     byId("loop").addEventListener("change", event => document.querySelectorAll("video").forEach(v => { v.loop = event.target.checked; }));
     document.addEventListener("visibilitychange", () => { if (document.hidden) pauseAll(); });
     byId("demo-app").hidden = false;
     byId("load-status").hidden = true;
-    setupColumnScroll();
+    updateRows();
+    window.addEventListener("resize", updateRows);
   } catch (error) {
     byId("load-status").textContent = "The examples could not be loaded. Please refresh the page to try again.";
     console.error(error);

@@ -95,15 +95,20 @@ h2 { margin: 0; font-size: 34px; font-weight: 500; line-height: 1.15; letter-spa
 .scroll-buttons button:hover:enabled { border-color: var(--ink); background: var(--ink); color: var(--bg); }
 .dataset-description { max-width: 900px; margin: 16px 0 22px; font-size: 17px; line-height: 1.65; color: var(--muted); }
 
-/* Comparison table */
-.comparison-frame { --cell: 264px; position: relative; }
-.comparison-frame::after { content: ""; position: absolute; top: 1px; right: 1px; bottom: 1px; width: 64px; background: linear-gradient(to right, rgba(255,255,255,0), #fff 85%); pointer-events: none; transition: opacity .2s; }
-.comparison-frame.at-end::after { opacity: 0; }
-.comparison-scroll { overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-left: 18px; background: var(--paper); border: 1px solid var(--line); border-radius: 3px; }
-.comparison { display: grid; width: max-content; padding: 0 18px; }
-.sample-row { display: grid; grid-template-columns: repeat(var(--columns), var(--cell)); gap: 14px; align-items: stretch; padding: 22px 0 20px; }
+/* Comparison rows: each row scrolls on its own */
+.comparison { --cell: 264px; background: var(--paper); border: 1px solid var(--line); border-radius: 3px; }
+.sample-row { padding: 20px 0 16px; }
 .sample-row + .sample-row { border-top: 1px solid var(--line); }
-.prompt-cell { grid-column: 1 / -1; justify-self: start; position: sticky; left: 18px; z-index: 1; max-width: calc(100vw - 110px); display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; }
+.sample-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; margin-bottom: 14px; padding: 0 18px; }
+.row-frame { position: relative; }
+.row-frame::before, .row-frame::after { content: ""; position: absolute; top: 0; bottom: 10px; z-index: 1; width: 56px; pointer-events: none; transition: opacity .2s; }
+.row-frame::before { left: 0; background: linear-gradient(to left, rgba(255,255,255,0), #fff 85%); }
+.row-frame::after { right: 0; background: linear-gradient(to right, rgba(255,255,255,0), #fff 85%); }
+.row-frame.at-start::before, .row-frame.at-end::after { opacity: 0; }
+.row-scroll { overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-left: 18px; padding-bottom: 10px; scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+.row-track { display: grid; grid-auto-flow: column; grid-auto-columns: var(--cell); gap: 14px; width: max-content; padding: 0 18px; }
+.sample-head .scroll-buttons button { width: 34px; height: 34px; font-size: 15px; }
+.prompt-cell { min-width: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; }
 .sample-number { margin-right: 4px; font-size: 18px; font-style: italic; color: var(--muted); font-variant-numeric: lining-nums tabular-nums; }
 .prompt-cell p { display: flex; align-items: baseline; gap: 10px; margin: 0; padding: 7px 14px 6px; border: 1px solid; border-radius: 2px; }
 .prompt-cell p span { font-size: 10.5px; font-weight: 600; }
@@ -167,11 +172,16 @@ footer > a:last-child:hover { color: var(--accent); }
   .loop-toggle { font-size: 14px; }
   .scroll-buttons button { width: 36px; height: 36px; }
   .dataset-description { font-size: 16px; }
-  .comparison-frame { --cell: min(216px, calc(100vw - 60px)); }
-  .comparison-scroll { scroll-padding-left: 9px; }
-  .comparison { padding: 0 9px; }
-  .sample-row { gap: 9px; padding: 14px 0 12px; }
-  .prompt-cell { left: 9px; max-width: calc(100vw - 62px); gap: 6px 8px; }
+  .comparison { --cell: min(216px, calc(100vw - 60px)); }
+  .sample-row { padding: 14px 0 10px; }
+  .sample-head { padding: 0 9px; gap: 8px 12px; margin-bottom: 10px; }
+  .sample-head { position: relative; }
+  .sample-head .scroll-buttons { position: absolute; top: -6px; right: 9px; }
+  .sample-head .scroll-buttons button { width: 30px; height: 30px; font-size: 14px; }
+  .row-scroll { scroll-padding-left: 9px; }
+  .row-track { gap: 9px; padding: 0 9px; }
+  .row-frame::before, .row-frame::after { width: 32px; }
+  .prompt-cell { gap: 6px 8px; }
   .sample-number { flex-basis: 100%; font-size: 14px; }
   .prompt-cell p { gap: 6px; padding: 5px 8px 4px; }
   .prompt-cell p span { font-size: 9px; }

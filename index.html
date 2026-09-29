@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400..700;1,400..700&display=swap">
-  <link rel="stylesheet" href="style.css?v=20260930">
-  <script src="app.js?v=20260930" defer></script>
+  <link rel="stylesheet" href="style.css?v=20260930b">
+  <script src="app.js?v=20260930b" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -55,15 +55,10 @@
           <div class="dataset-heading"><h3 id="dataset-name">VGGSound-Counterfactual</h3><span id="sample-count"></span></div>
           <div class="demo-controls">
             <label class="loop-toggle"><input id="loop" type="checkbox"> Loop playback</label>
-            <div class="scroll-buttons" aria-label="Browse methods"><button id="scroll-prev" type="button" aria-label="Show earlier methods">←</button><button id="scroll-next" type="button" aria-label="Show more methods">→</button></div>
           </div>
         </div>
         <p class="dataset-description">Curated examples from our user study, shown with method identities revealed. Each row is one video and target prompt; each column is one method. Use headphones: playing one clip pauses the others. Clips show the same opening segment, up to 8 seconds.</p>
-        <div id="comparison-frame" class="comparison-frame">
-          <div id="comparison-scroll" class="comparison-scroll" role="region" aria-label="Audio-video comparisons, one example per row" tabindex="0">
-            <div id="comparison" class="comparison"></div>
-          </div>
-        </div>
+        <div id="comparison" class="comparison" role="list" aria-label="Audio-video comparisons, one example per row"></div>
         <p class="protocol-note">TAP-Foley (Ours) uses constant α = 1.2 on both MMAudio and Omni2Sound. Default CFG uses video + target prompt. These curated examples illustrate individual outputs.</p>
       </div>
       <p id="load-status" role="status">Loading examples…</p>
