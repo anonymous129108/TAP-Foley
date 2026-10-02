@@ -1,10 +1,10 @@
-# Counterfactual video–source–target manifest
+# VGGSound-Counterfactual manifest
 
 The reviewed VGGSounder subset contains **1,189 videos**, one source caption and
 **10 target captions per video**: **11,890 counterfactual triplets**.
 
-- `vggsounder_1189x10.csv`: `Video ID`, `category` (source), `target_caption_01` … `target_caption_10`.
-- `vggsounder_1189x10.jsonl`: one `{video, source, targets}` object per video.
+- `vggsound-counterfactual.csv`: `Video ID`, `category` (source), `target_caption_01` … `target_caption_10`.
+- `vggsound-counterfactual.jsonl`: one `{video, source, targets}` object per video.
 - `manifest.json`: counts, schema and SHA-256 checksums.
 
 Caption spelling and target order are preserved exactly. Each `video` is a
@@ -23,7 +23,7 @@ import json
 from pathlib import Path
 
 video_root = Path("/path/to/vggsound/video")
-for line in Path("data/vggsounder_1189x10.jsonl").read_text().splitlines():
+for line in Path("data/vggsound-counterfactual.jsonl").read_text().splitlines():
     example = json.loads(line)
     video = video_root / example["video"]
     for target in example["targets"]:

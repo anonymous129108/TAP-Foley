@@ -4,8 +4,8 @@
   "targets_per_video": 10,
   "triplets": 11890,
   "sha256": {
-    "vggsounder_1189x10.csv": "66caf495b853f30679cf8ea83e9a743808b060adb9b0eabeec57283d1a955957",
-    "vggsounder_1189x10.jsonl": "49a6d4a222906a76688ea0343d0894d66053f7107755aa543036d1aedec2a1f0"
+    "vggsound-counterfactual.csv": "66caf495b853f30679cf8ea83e9a743808b060adb9b0eabeec57283d1a955957",
+    "vggsound-counterfactual.jsonl": "49a6d4a222906a76688ea0343d0894d66053f7107755aa543036d1aedec2a1f0"
   },
   "video_reference": "<YouTube ID>_<zero-padded start seconds>.mp4",
   "contains_original_video_files": false
